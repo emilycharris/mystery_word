@@ -14,8 +14,11 @@ print(secret_word_letters)
 #Let the user know how many letters the computer's word contains.
 
 print("The secret word contains " + str(len(secret_word)) + " letters.")
+
+
 #Ask the user to supply one guess (i.e. letter) per round.
 #This letter can be upper or lower case and it should not matter.
+
 
 guess = input("Guess a letter: ").lower()
 bad_guesses = []
@@ -23,28 +26,38 @@ good_guesses = []
 
 #Let the user know if their guess appears in the computer's word.
 #Display the partially guessed word, as well as letters that have not been guessed.
-for letter in secret_word_letters:
-    if letter in good_guesses:
-        print(letter, end=' ')
-    else:
-        print('- ', end=' ')
+
+#for letter in secret_word_letters:
+ #   if letter in good_guesses:
+  #      print(letter, end=' ')
+   # else:
+    #    print('- ', end=' ')
 
 
 for letter in secret_word_letters:
-    if guess == letter:
-        #print("letter found")
-        for letter in guess:
-            if letter != good_guesses:
-                good_guesses.append(letter)
-                #print("\n"+"The letter {} is part of the secret word!".format(guess))
-            else:
-                bad_guesses.append(guess)
-                #print("\n"+"The letter {} is not part of the secret word!".format(guess))
-            print("\n"+"Good guesses: " + str(good_guesses))
-            print("\n"+"Bad guesses: " + str(bad_guesses))
-        guess = input("Guess a letter: ").lower()
+    if guess in secret_word_letters:
+        if guess not in good_guesses:
+            good_guesses.append(guess)
     else:
-        
+        if guess not in bad_guesses:
+            bad_guesses.append(guess)
+
+    print("\n"+"Good guesses: " + str(good_guesses))
+    print("\n"+"Bad guesses: " + str(bad_guesses))
+    guess = input("Guess a letter: ").lower()
+
+
+
+            #if guess == letter:
+            #   good_guesses.append(guess)
+            #print("\n"+"The letter {} is part of the secret word!".format(guess))
+            #if guess != letter:
+            #else:
+            #   bad_guesses.append(guess)
+            #print("\n"+"The letter {} is not part of the secret word!".format(guess))
+
+
+
 
 
 
