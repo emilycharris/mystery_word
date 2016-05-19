@@ -33,14 +33,14 @@ good_guesses = []
    # else:
     #    print('- ', end=' ')
 
-
-for letter in secret_word_letters:
-    if guess in secret_word_letters:
-        if guess not in good_guesses:
-            good_guesses.append(guess)
-    else:
-        if guess not in bad_guesses:
-            bad_guesses.append(guess)
+while True:
+    for letter in secret_word_letters:
+        if guess in secret_word_letters:
+            if guess not in good_guesses:
+                good_guesses.append(guess)
+        else:
+            if guess not in bad_guesses:
+                bad_guesses.append(guess)
 
     print("\n"+"Good guesses: " + str(good_guesses))
     print("\n"+"Bad guesses: " + str(bad_guesses))
