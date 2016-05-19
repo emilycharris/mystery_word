@@ -23,27 +23,29 @@ good_guesses = []
 
 #Let the user know if their guess appears in the computer's word.
 #Display the partially guessed word, as well as letters that have not been guessed.
-def draw_spaces():
-        for letter in secret_word_letters:
-            if letter in good_guesses:
-                print(letter, end=' ')
+for letter in secret_word_letters:
+    if letter in good_guesses:
+        print(letter, end=' ')
+    else:
+        print('- ', end=' ')
+
+
+for letter in secret_word_letters:
+    if guess == letter:
+        #print("letter found")
+        for letter in guess:
+            if letter != good_guesses:
+                good_guesses.append(letter)
+                #print("\n"+"The letter {} is part of the secret word!".format(guess))
             else:
-                print('- ', end=' ')
-draw_spaces()
+                bad_guesses.append(guess)
+                #print("\n"+"The letter {} is not part of the secret word!".format(guess))
+            print("\n"+"Good guesses: " + str(good_guesses))
+            print("\n"+"Bad guesses: " + str(bad_guesses))
+        guess = input("Guess a letter: ").lower()
+    else:
+        
 
-def get_guess():
-     if guess in secret_word_letters:
-        good_guesses.append(guess)
-        print("\n"+"The letter {} is part of the secret word!".format(guess))
-     else:
-        bad_guesses.append(guess)
-        print("\n"+"The letter {} is not part of the secret word!".format(guess))
-     print("Good guesses: ")
-     print(good_guesses)
-     print("Bad guesses: ")
-     print(bad_guesses)
-
-get_guess()
 
 
 
