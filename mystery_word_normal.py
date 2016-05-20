@@ -17,6 +17,11 @@ def get_secret_word():
         global secret_word_letters
         secret_word_letters = list(secret_word)
 
+def duplicate_guess():
+    if guess in good_guesses or guess in bad_guesses:
+        print("I'm sorry, that letter has already been used")
+
+
 #The computer must select a word at random from the list of words in the file
 get_secret_word()
 
@@ -37,9 +42,13 @@ good_guesses = []
 #Display the partially guessed word, as well as letters that have not been guessed.
 #A user is allowed 8 guesses. Remind the user of how many guesses they have left after each round.
 #A user loses a guess only when they guess incorrectly.
+#If the user guesses the same letter twice, do not take away a guess.
+#Instead, print a message letting them know they've already guessed that letter and ask them to try again.
+#If the player runs out of guesses, reveal the word to the user when the game ends.
 
 
 while len(bad_guesses) < 7:
+    duplicate_guess()
     for letter in secret_word_letters:
         if guess in secret_word_letters:
             if guess not in good_guesses:
@@ -49,10 +58,8 @@ while len(bad_guesses) < 7:
         else:
             if guess not in bad_guesses:
                 bad_guesses.append(guess)
-
                 for letter in secret_word_letters:
                     draw_word_spaces()
-
 
     #print("\n"+"Good guesses: " + str(good_guesses))
     #print("Bad guesses: " + str(bad_guesses))
@@ -61,7 +68,4 @@ else:
     print("\n" + "Sorry, you're out of turns.  The word was {}.".format(secret_word))
 
 
-    #If the user guesses the same letter twice, do not take away a guess.
-    #Instead, print a message letting them know they've already guessed that letter and ask them to try again.
     #The game should end when the user constructs the full word or runs out of guesses.
-    #If the player runs out of guesses, reveal the word to the user when the game ends.
