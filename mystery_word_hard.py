@@ -1,7 +1,6 @@
 import random
 import sys
 
-#add error checking for input >1 letter
 #choose level of difficulty
     #easy = 4-6 characters
     #normal = 6-10 characters
@@ -30,18 +29,17 @@ def get_secret_word():
         secret_word_letters = list(secret_word)
         print("The secret word contains " + str(len(secret_word)) + " letters.")
 
-def guess_error_checking():
-    global guess
-    guess = input("Guess a letter: \n").lower()
+#def guess_error_checking():
+    #guess = input("Guess a letter: \n").lower()
 
-    if guess in good_guesses or guess in bad_guesses:
-        print("I'm sorry, that letter has already been used.  Try again. \n")
+    #if guess in good_guesses or guess in bad_guesses:
+        #print("I'm sorry, that letter has already been used.  Try again. \n")
 
-    elif len(guess) != 1:
-        print("Make sure you're only guessing one letter! Try again. \n")
+    #elif len(guess) != 1:
+        #print("Make sure you're only guessing one letter! Try again. \n")
 
-    else:
-        pass
+    #else:
+        #pass
 
 
 get_secret_word()
@@ -54,19 +52,22 @@ blanks = 0
 
 
 while len(bad_guesses) < 7:
-    guess_error_checking()
     for letter in secret_word_letters:
-        if guess in secret_word_letters:
+        guess = input("\n"+"You have {} guesses left. Guess a letter: \n".format(8-len(bad_guesses))).lower()
+        if len(guess) != 1:
+            print("Make sure you guess one letter.")
+        elif guess in good_guesses or guess in bad_guesses:
+            print("You've already guessed that letter.  Try again.")
+        elif guess in secret_word_letters:
             if guess not in good_guesses:
                 good_guesses.append(guess)
                 print("\n" + "That's right!")
+                draw_word_spaces()
         else:
             if guess not in bad_guesses:
                 bad_guesses.append(guess)
                 print("\n" + "No, that letter's not included.")
+                draw_word_spaces()
 
-    draw_word_spaces()
-
-    guess = input("\n"+"You have {} guesses left. Guess again: \n".format(8-len(bad_guesses))).lower()
 else:
     print("\n" + "Sorry, you're out of turns.  The word was {}.".format(secret_word))
