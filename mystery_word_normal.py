@@ -19,7 +19,6 @@ def get_secret_word():
         words = opened_file.read().split("\n")
         global secret_word
         secret_word = random.choice(words).lower()
-        print(secret_word)
         global secret_word_letters
         secret_word_letters = list(secret_word)
 
