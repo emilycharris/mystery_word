@@ -1,4 +1,5 @@
 import random
+import sys
 
 blanks = 0
 def draw_word_spaces():
@@ -8,9 +9,10 @@ def draw_word_spaces():
             print(letter + " ", end='')
         else:
             print('_ ', end='')
-    if blanks == 0:
+            blanks += 1
+    if blanks == 0 and (len(good_guesses) > 0 or len(bad_guesses) > 0):
         print("\n"+"You win")
-
+        sys.exit()
 
 def get_secret_word():
     with open("words") as opened_file:
@@ -57,14 +59,14 @@ while len(bad_guesses) < 7:
         if guess in secret_word_letters:
             if guess not in good_guesses:
                 good_guesses.append(guess)
-                print("That's right")
+                print("\n" + "That's right")
         else:
             if guess not in bad_guesses:
                 bad_guesses.append(guess)
 
     draw_word_spaces()
-    print("\n"+"Good guesses: " + str(good_guesses))
-    print("Bad guesses: " + str(bad_guesses))
+    #print("\n"+"Good guesses: " + str(good_guesses))
+    #print("Bad guesses: " + str(bad_guesses))
     guess = input("\n"+"You have {} guesses left. Guess again: ".format(8-len(bad_guesses))).lower()
 else:
     print("\n" + "Sorry, you're out of turns.  The word was {}.".format(secret_word))
