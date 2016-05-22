@@ -3,13 +3,13 @@
 
 import random
 import sys
-import os
 
 bad_guesses = []
 good_guesses = []
 easy_list = []
 medium_list = []
 hard_list = []
+
 blanks = 0
 turns = 0
 
@@ -36,9 +36,7 @@ def get_secret_word():
         secret_word = random.choice(hard_list).lower()
     else:
         new_game()
-    #print("The secret word contains " + str(len(secret_word)) + " letters.\n"
-    #+ "_ " * len(secret_word))
-    print(secret_word)
+    print("The secret word contains " + str(len(secret_word)) + " letters.\n")
 
 
 def game_loop():
@@ -46,24 +44,24 @@ def game_loop():
     while True:
         for _ in secret_word:
             draw_word_spaces()
-            guess = input("\n\n"+"You have {} turns. Guess a letter: \n".format(8-turns)).lower()
+            guess = input("\n\nYou have {} turns left. \nGuess a letter: ".format(8-turns)).lower()
             if len(guess) != 1:
-                print("Make sure you guess one letter.")
+                print("Make sure you guess one letter.\n")
             elif guess in good_guesses or guess in bad_guesses:
                 print("You've already guessed that letter.  Try again.\n")
             elif guess in secret_word:
                 turns += 0
                 if guess not in good_guesses:
                     good_guesses.append(guess)
-                    print("\n" + "That's right! You keep all your turns.\n")
+                    print("\nThat's right! You keep all your turns.")
             else:
                 turns += 1
                 if guess not in bad_guesses:
                     bad_guesses.append(guess)
-                    print("\n" + "No, that letter's not included.")
+                    print("\nNo, that letter's not included.")
                     print("You've taken {} of 8 turns. ".format(turns))
                     if turns > 7:
-                        print("\n\n" + "Sorry, you're out of turns.  The word was {}.".format(secret_word))
+                        print("\nSorry, you're out of turns.  The word was {}.".format(secret_word))
                         clear()
                         new_game()
 
@@ -96,12 +94,14 @@ def new_game():
         game()
     elif start_over == "n" or start_over == "no":
         sys.exit()
-    else: new_game()
+    else:
+        new_game()
 
 
 def game():
     get_secret_word()
     game_loop()
     clear()
+
 
 game()
