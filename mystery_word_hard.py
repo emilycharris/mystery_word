@@ -1,10 +1,14 @@
 import random
 import sys
 
-#choose level of difficulty
-    #easy = 4-6 characters
-    #normal = 6-10 characters
-    #hard = 10+ characters
+
+bad_guesses = []
+good_guesses = []
+easy_list = []
+medium_list = []
+hard_list = []
+
+blanks = 0
 #add loop to restart game
 
 def draw_word_spaces():
@@ -22,43 +26,35 @@ def draw_word_spaces():
 def get_secret_word():
     with open("words") as opened_file:
         words = opened_file.read().split("\n")
-        global secret_word
-        secret_word = random.choice(words).lower()
-        print(secret_word)
-        global secret_word_letters
-        secret_word_letters = list(secret_word)
-        print("The secret word contains " + str(len(secret_word)) + " letters.")
+        for word in words:
+            if len(word) >= 4 and len(word) < 6:
+                easy_list.append(word)
+            elif len(word) >= 6 and len(word) < 10:
+                medium_list.append(word)
+            elif len(word) >= 10:
+                hard_list.append(word)
 
-#def guess_error_checking():
-    #guess = input("Guess a letter: \n").lower()
-
-    #if guess in good_guesses or guess in bad_guesses:
-        #print("I'm sorry, that letter has already been used.  Try again. \n")
-
-    #elif len(guess) != 1:
-        #print("Make sure you're only guessing one letter! Try again. \n")
-
-    #else:
-        #pass
-
+    global difficulty_input
+    global secret_word
+    difficulty_input = input("Select your level of difficulty: (E)asy, (M)edium, or (H)ard: \n").lower()
+    if difficulty_input == "e" or difficulty_input == "easy":
+        secret_word = random.choice(easy_list).lower()
+    if difficulty_input == "m" or difficulty_input == "medium":
+        secret_word = random.choice(medium_list).lower()
+    if difficulty_input == "h" or difficulty_input == "hard":
+        secret_word = random.choice(hard_list).lower()
+    print("The secret word contains " + str(len(secret_word)) + " letters.")
 
 get_secret_word()
 
-bad_guesses = []
-good_guesses = []
-
-blanks = 0
-
-
-
 while len(bad_guesses) < 7:
-    for letter in secret_word_letters:
+    for letter in secret_word:
         guess = input("\n"+"You have {} guesses left. Guess a letter: \n".format(8-len(bad_guesses))).lower()
         if len(guess) != 1:
             print("Make sure you guess one letter.")
         elif guess in good_guesses or guess in bad_guesses:
             print("You've already guessed that letter.  Try again.")
-        elif guess in secret_word_letters:
+        elif guess in secret_word:
             if guess not in good_guesses:
                 good_guesses.append(guess)
                 print("\n" + "That's right!")
