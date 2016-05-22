@@ -49,7 +49,7 @@ def game_loop():
                     print("You've taken {} of 8 turns. ".format(turns))
                     if turns > 7:
                         print("\nSorry, you're out of turns.  The word was {}.".format(secret_word))
-                        return False    
+                        return False
 
 def game():
     get_secret_word()

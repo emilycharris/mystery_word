@@ -1,6 +1,3 @@
-#turns are iterating correctly through the += 1 command.
-#"While turns < 8" loop isn't working correctly every time.
-
 import random
 import sys
 
